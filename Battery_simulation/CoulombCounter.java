@@ -6,7 +6,6 @@ public class CoulombCounter extends VoltageReader {
     double SoC = super.SoC();
     int curr;
     int batteryCapacity;
-    float lol;
 
     CoulombCounter(double SoC, int curr, int batteryCapacity) {
         this.SoC = SoC;
