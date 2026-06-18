@@ -15,4 +15,8 @@ public class Cells {
     public static float StateOfCharge() {
         return 2.1;
     }
+
+    public void StateOfHealth(){
+
+    }
 }
