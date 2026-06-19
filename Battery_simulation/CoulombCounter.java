@@ -16,6 +16,7 @@ public class CoulombCounter extends VoltageReader {
 
     private float kalmanFilter(){
         float uncertaintyGain=;
+        System.out.println("lol");
 
     }
 
