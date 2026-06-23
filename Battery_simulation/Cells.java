@@ -1,22 +1,30 @@
 package Battery_simulation;
 
-public class Cells {
-    float current, resistance;
-    double voltage;
-    int storageCapacity, temperture;
+import java.util.Random;
 
-    Cells(float curr, double vol, int storageC, float res) {
+public class Cells {
+    static float current, batCapacity;
+    float resistance, begOfLifeCapacity;
+    double voltage;
+
+    Cells(float curr, double vol, int batC, float res, float bolC) {
         this.current = curr;
         this.voltage = vol;
-        this.storageCapacity = storageC;
+        this.batCapacity = batC;
         this.resistance = res;
+        this.begOfLifeCapacity = bolC;
     }
 
-    public static float StateOfCharge() {
-        return 2.1;
+    public static double StateOfCharge() {
+        CoulombCounter var = new CoulombCounter(current, batCapacity);
+        Random noise = new Random();
+        double fliteredSc = var.kalmanFilter(70.2d, noise.nextFloat(0.99f), noise.nextFloat(0.75f),
+                noise.nextFloat(0.66f));
+        return fliteredSc;
+
     }
 
-    public void StateOfHealth(){
-
+    public float StateOfHealth() {
+        return batCapacity / begOfLifeCapacity;
     }
 }

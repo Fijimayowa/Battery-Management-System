@@ -1,6 +1,6 @@
 package Battery_simulation;
 
-import java.util.Map;
+import java.util.Random;
 
 public class CoulombCounter extends VoltageReader {
     double SoC = super.SoC();
@@ -8,19 +8,19 @@ public class CoulombCounter extends VoltageReader {
     int batteryCapacity;
     float perrorCovarince = 0.0f;
 
-    CoulombCounter(double SoC, int curr, int batteryCapacity) {
-        this.SoC = SoC;
+    CoulombCounter(int curr, int batteryCapacity) {
         this.curr = curr;
         this.batteryCapacity = batteryCapacity;
     }
 
-    private float kalmanFilter(float uncGain, float noiseV, float perrorC, float uncMeasure){
-        float systemNoise=0.0f, kalmanGain;
-        double socEstimatePredict=SoC + noiseV;
-        perrorCovarince=perrorC+uncGain;
-        kalmanGain=perrorC/(perrorC+uncMeasure);
-        socEstimate=socEstimate+kalmanGain*()
-
+    private void kalmanFilter(double socEstimate, float uncGain, float noiseV, float uncMeasure) {
+        float kalmanGain;
+        Random systemNoise = new Random();
+        double socEstimatePredict = socEstimate + noiseV;
+        perrorCovarince = perrorCovarince + systemNoise.nextDouble(1.111);
+        kalmanGain = perrorCovarince / (perrorCovarince + uncMeasure);
+        socEstimate = socEstimate + kalmanGain * (SoC - socEstimatePredict);
+        perrorCovarince = kalmanGain * perrorCovarince;
 
     }
 
