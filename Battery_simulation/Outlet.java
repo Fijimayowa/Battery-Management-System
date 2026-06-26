@@ -1,42 +1,101 @@
 package Battery_simulation;
 
+import java.util.Random;
+
 public class Outlet {
-    boolean switch;
+    static boolean powerSwitch, completeCircuit;
     float current, voltage, resistance;
+    BMSObjects device = null;
 
-void plugIn(){
-    System.out.println("lol");
-}
+    Outlet(float current, float voltage, float resistance) {
+        this.current = current;
+        this.voltage = voltage;
+        this.resistance = resistance;
+    }
 
-void unplug()
+    public void plugIn(BMSObjects var) {
+        if (powerSwitch == false) {
+            return;
+        }
+        Random noise = new Random();
+        float avgVolt = 0.99f + noise.nextFloat(.13f);
+        while (powerSwitch) {
+            var.charge(var.getSoc() + avgVolt, (int) var.getSoc(), var.getTemperture(), var.getBatteryCapacity());
 
-void turnOn()
+        }
 
-void turnOff()
+    }
 
-boolean isOccupied()
+    public void unplug() {
+        current = 0;
+        voltage = 0;
+        powerSwitch = false;
+    }
 
-boolean isPowerOn()
+    public boolean turnOn() {
+        return powerSwitch = true;
 
-float getVoltage()
+    }
 
-float getCurrent()
+    public boolean turnOff() {
+        return powerSwitch = false;
 
-float getPower()
+    }
 
-boolean hasGround()
+    boolean isOccupied() {
+        return powerSwitch && isPowerOn() && getConnectedDevice;
 
-boolean isGrounded()
+    }
 
-void tripBreaker()
+    boolean isPowerOn() {
+        return current > 0 && voltage > 0;
 
-void resetBreaker()
+    }
 
-String getConnectedDevice()
+    float getVoltage() {
+        return voltage;
+    }
 
-String setConnectedDevice()
+    float getCurrent() {
+        return current;
+    }
 
-boolean isCircuitComplete()
-    
-    
+    float getPower() {
+        return current * voltage;
+    }
+
+    boolean hasGround() {
+        if (resistance >= 1) {
+            return true;
+        }
+        return false;
+    }
+
+    boolean isGrounded(float resistanceOfDevice) {
+        return resistance > resistanceOfDevice;
+    }
+
+    void tripBreaker() {
+        completeCircuit = false;
+    }
+
+    void resetBreaker() {
+        completeCircuit = true;
+    }
+
+    BMSObjects getConnectedDevice() {
+        return device;
+
+    }
+
+    void setConnectedDevice(BMSObjects var) {
+        device = var;
+
+    }
+
+    boolean isCircuitComplete() {
+        return completeCircuit;
+
+    }
+
 }

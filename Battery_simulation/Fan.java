@@ -1,9 +1,5 @@
 package Battery_simulation;
 
-import java.util.concurrent.*;
-import java.util.Random;
-import java.lang.Thread;
-
 public class Fan extends BMSObjects {
     float size, rpm, voltage, power, temperture, current;
     String color, brand, model;
@@ -48,15 +44,21 @@ public class Fan extends BMSObjects {
         return batCapacity / begOfLifeCapacity;
     }
 
-    @Override
     public String getRequirement() {
-        return "Size: " + Double.toString(size) + "Voltage: " + Float.toString(voltage) + "Temperture: "
-                + Float.toString(temperture) + "\nCurrent: " + Float.toString(current) + "Power: "
-                + Float.toString(current * voltage) + "Battery Percentage: " + Integer.toString(batCapacity);
+        return super.getRequirement(size, voltage, temperture, current, batCapacity);
+    }
+
+    public String getStatus() {
+        return super.getStatus(brand, color, model);
     }
 
     @Override
-    public String getStatus() {
-        return "Brand: " + brand + "Color: " + color + "Model: " + model;
+    public int getBatteryCapacity() {
+        return batCapacity;
+    }
+
+    @Override
+    public float getTemperture() {
+        return temperture;
     }
 }

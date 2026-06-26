@@ -28,10 +28,8 @@ public abstract class BMSObjects {
             temp += 0.12f;
             batC -= 3;
         }, 7, TimeUnit.DAYS);
-        batP = sC;
+        batP = (int) sC;
     }
-
-    abstract String getstatus();
 
     void run(double sC, float temperture, int batCapacity) {
         float avgDep = 0.99f;
@@ -50,12 +48,24 @@ public abstract class BMSObjects {
         }, 7, TimeUnit.DAYS);
     }
 
-    abstract String getRequirement();
+    String getRequirement(double size, float voltage, float temperture, float current, int batCapacity) {
+        return "Size: " + Double.toString(size) + "Voltage: " + Float.toString(voltage) + "Temperture: "
+                + Float.toString(temperture) + "\nCurrent: " + Float.toString(current) + "Power: "
+                + Float.toString(current * voltage) + "Battery Percentage: " + Integer.toString(batCapacity);
+    }
+
+    String getStatus(String brand, String color, String model) {
+        return "Brand: " + brand + "Color: " + color + "Model: " + model;
+    }
 
     abstract boolean isSafeToCharge();
 
     abstract double getSoc();
 
     abstract double stateOfHeath();
+
+    abstract int getBatteryCapacity();
+
+    abstract float getTemperture();
 
 }

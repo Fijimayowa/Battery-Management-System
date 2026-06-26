@@ -52,4 +52,14 @@ public class Radio extends BMSObjects {
         return super.getStatus(brand, color, model);
     }
 
+    @Override
+    public int getBatteryCapacity() {
+        return batCapacity;
+    }
+
+    @Override
+    public float getTemperture() {
+        return temperture;
+    }
+
 }
