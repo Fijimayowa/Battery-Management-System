@@ -44,8 +44,8 @@ public class Radio extends BMSObjects {
         return batCapacity / begOfLifeCapacity;
     }
 
-    public String getRequirement() {
-        return super.getRequirement(size, voltage, temperture, current, batCapacity);
+    public float getPowerRequirement() {
+        return power = current * voltage;
     }
 
     public String getStatus() {

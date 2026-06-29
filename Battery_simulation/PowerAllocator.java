@@ -1,14 +1,13 @@
 package Battery_simulation;
 
-import java.util.Queue;
-
 public class PowerAllocator {
     LightBulb light;
     Fan fan;
     Outlet outlet;
     Radio radio;
-    BMSObjects pirority = null;
-    int pirority;
+    BMSObjects priority = null;
+    int priorityNum;
+    int kiloWatt = 30;
 
     PowerAllocator(LightBulb lt, Fan fn, Outlet ot, Radio rd) {
         light = lt;
@@ -19,6 +18,9 @@ public class PowerAllocator {
     }
 
     public void Queue(BMSObjects variable) {
+        Queue queue=new Queue(variable);
+        queue.Enqueue();
+        powerRequirement=queue.device.getRequirement()
 
     }
 

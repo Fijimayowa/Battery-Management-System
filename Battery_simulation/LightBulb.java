@@ -4,7 +4,7 @@ public class LightBulb extends BMSObjects {
     float size, rpm, voltage, power, temperture, current;
     String color, brand, model;
     int batCapacity = 2000, begOfLifeCapacity = 2000;
-    double soC, battery_percentage;
+    double soC, batteryPercentage;
 
     LightBulb(float size, float rpm, float voltage, float current, float temperture, double soC, String color,
             String brand,
@@ -33,8 +33,8 @@ public class LightBulb extends BMSObjects {
         return super.getStatus(brand, color, model);
     }
 
-    public String getRequirement() {
-        return super.getRequirement(size, voltage, temperture, current, batCapacity);
+    public float getPowerRequirement() {
+        return power = current * voltage;
     }
 
     @Override
@@ -51,5 +51,15 @@ public class LightBulb extends BMSObjects {
     @Override
     public double stateOfHeath() {
         return batCapacity / begOfLifeCapacity;
+    }
+
+    @Override
+    public int getBatteryCapacity() {
+        return batCapacity;
+    }
+
+    @Override
+    public float getTemperture() {
+        return temperture;
     }
 }
