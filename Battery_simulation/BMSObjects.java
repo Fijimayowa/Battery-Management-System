@@ -58,6 +58,8 @@ public abstract class BMSObjects {
         return "Brand: " + brand + "Color: " + color + "Model: " + model;
     }
 
+    abstract float getPowerRequirement();
+
     abstract boolean isSafeToCharge();
 
     abstract double getSoc();

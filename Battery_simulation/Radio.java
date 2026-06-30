@@ -44,8 +44,9 @@ public class Radio extends BMSObjects {
         return batCapacity / begOfLifeCapacity;
     }
 
+    @Override
     public float getPowerRequirement() {
-        return power = current * voltage;
+        return current * voltage;
     }
 
     public String getStatus() {

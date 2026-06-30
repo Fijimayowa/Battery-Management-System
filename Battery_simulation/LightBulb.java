@@ -33,8 +33,9 @@ public class LightBulb extends BMSObjects {
         return super.getStatus(brand, color, model);
     }
 
+    @Override
     public float getPowerRequirement() {
-        return power = current * voltage;
+        return current * voltage;
     }
 
     @Override
