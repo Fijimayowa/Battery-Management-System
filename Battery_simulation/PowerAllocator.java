@@ -10,34 +10,44 @@ import java.lang.Thread;
 public class PowerAllocator {
     LightBulb light;
     Fan fan;
-    Outlet outlet;
     Radio radio;
-    BMSObjects priority = null;
     int priorityNum;
     float kiloWatt = 30;
-    float curr=1.25f, vol=1.25f;
-    Map<String, float> prior=new HashMap<>();
+    Map<String, Float> prior = new HashMap<>();
 
-    PowerAllocator(LightBulb lt, Fan fn, Outlet ot, Radio rd) {
+    PowerAllocator(LightBulb lt, Fan fn, Radio rd) {
         light = lt;
         fan = fn;
-        outlet = ot;
         radio = rd;
+        prior.put("light", light.getPowerRequirement());
+        prior.put("fan", fan.getPowerRequirement());
+        prior.put("radio", radio.getPowerRequirement());
 
     }
 
-    public void Queue(BMSObjects variable) throws InterruptedException{
-        Queue<BMSObjects> queue= new LinkedList<>();
+    public void Queue(BMSObjects variable) throws InterruptedException {
+        Queue<BMSObjects> queue = new LinkedList<>();
         queue.add(variable);
-        float powerRequirement=queue.poll().getPowerRequirement(), avgDep=0.99f;
-        Random noise=new Random();
-        while (powerRequirement>0.5) {
-            float var=noise.nextFloat(0.99f)+avgDep;
-            kiloWatt-=var;
-            powerRequirement-=var;
+        float powerRequirement = queue.poll().getPowerRequirement(), avgDep = 0.99f;
+        Random noise = new Random();
+        while (powerRequirement > 0.5) {
+            float var = noise.nextFloat(0.99f) + avgDep;
+            kiloWatt -= var;
+            powerRequirement -= var;
             Thread.sleep(1000);
         }
 
     }
+
+    public void Priority(){
+        float max=0.0f;
+        String val;
+        for(Map.Entry<String, Float> entry: prior.entrySet()){
+            if (entry.getValue()>max) {
+                max=entry.getValue();
+                val=entry.getKey();
+            }
+        }
+
 
 }
