@@ -1,5 +1,5 @@
 package Battery_simulation;
-
+import java.lang.Thread;
 import java.util.Random;
 
 public class Outlet {
@@ -13,7 +13,7 @@ public class Outlet {
         this.resistance = resistance;
     }
 
-    public void plugIn(BMSObjects var) {
+    public void plugIn(BMSObjects var) throws InterruptedException {
         if (powerSwitch == false) {
             return;
         }
@@ -21,6 +21,7 @@ public class Outlet {
         float avgVolt = 0.99f + noise.nextFloat(.13f);
         while (powerSwitch) {
             var.charge(var.getSoc() + avgVolt, (int) var.getSoc(), var.getTemperture(), var.getBatteryCapacity());
+            Thread.sleep(1000);
 
         }
 
@@ -43,7 +44,7 @@ public class Outlet {
     }
 
     boolean isOccupied() {
-        return powerSwitch && isPowerOn() && getConnectedDevice;
+        return powerSwitch && isPowerOn() && getConnectedDevice()!=null;
 
     }
 
