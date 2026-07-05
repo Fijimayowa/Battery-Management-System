@@ -8,7 +8,7 @@ app=Flask(__name__)
 
 @app.route("/")
 def index(method=["GET", "POST"]):
-    np._IntegralArrayT
+    y=np.array([])
 
 
 if __name__=="__main__":
