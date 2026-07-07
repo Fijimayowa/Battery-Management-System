@@ -17,7 +17,7 @@ public class RESTAPI {
     @PostMapping("/sendReading")
     public float[][] postData(@RequestBody float[][] entity) {
         // TODO: process POST request
-        System.out.println(entity);
+        System.out.println(entity)
         return entity;
     }
 
