@@ -5,6 +5,7 @@ public class Radio extends BMSObjects {
     String color, brand, model;
     int batCapacity = 2500, begOfLifeCapacity = 2500;
     double soC, battery_percentage;
+    final double optimalTemp=71.00d;
 
     Radio(float size, float rpm, float voltage, float current, float temperture, double soC, String color, String brand,
             String model) {

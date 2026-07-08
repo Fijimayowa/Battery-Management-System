@@ -1,12 +1,14 @@
 package Battery_simulation;
 
-public class Fan extends BMSObjects {
+public class LightBulb extends BMSObjects {
     float size, rpm, voltage, power, temperture, current;
     String color, brand, model;
-    int batCapacity = 1200, begOfLifeCapacity = 1200;
-    double soC, battery_percentage;
+    int batCapacity = 2000, begOfLifeCapacity = 2000;
+    double soC, batteryPercentage;
+    final double optimalTemp=68.00d;
 
-    Fan(float size, float rpm, float voltage, float current, float temperture, double soC, String color, String brand,
+    LightBulb(float size, float rpm, float voltage, float current, float temperture, double soC, String color,
+            String brand,
             String model) {
         this.size = size;
         this.rpm = rpm;
@@ -20,12 +22,21 @@ public class Fan extends BMSObjects {
 
     }
 
-    public void charge(double soC, int batCapacity, float temperture, int batC) {
-        super.charge(soC, batCapacity, temperture, batC);
+    public void charge(double sC, int batP, float temp, int batC) {
+        super.charge(sC, batP, temp, batC);
     }
 
-    public void run(double soC, float temperture, int batCapacity) {
-        super.run(soC, temperture, batCapacity);
+    public void run(double sC, float temperture, int batCapacity) {
+        super.run(sC, temperture, batCapacity);
+    }
+
+    public String getStatus() {
+        return super.getStatus(brand, color, model);
+    }
+
+    @Override
+    public float getPowerRequirement() {
+        return current * voltage;
     }
 
     @Override
@@ -35,22 +46,13 @@ public class Fan extends BMSObjects {
 
     @Override
     public boolean isSafeToCharge() {
-        return temperture < 80.5f;
+        return temperture < 101.5f;
 
     }
 
     @Override
     public double stateOfHeath() {
         return batCapacity / begOfLifeCapacity;
-    }
-
-    @Override
-    public float getPowerRequirement() {
-        return current * voltage;
-    }
-
-    public String getStatus() {
-        return super.getStatus(brand, color, model);
     }
 
     @Override
