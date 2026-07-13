@@ -5,7 +5,7 @@ public class LightBulb extends BMSObjects {
     String color, brand, model;
     int batCapacity = 2000, begOfLifeCapacity = 2000;
     double soC, batteryPercentage;
-    final double optimalTemp=68.00d;
+    final double optimalTemp = 68.00d;
 
     LightBulb(float size, float rpm, float voltage, float current, float temperture, double soC, String color,
             String brand,
@@ -30,6 +30,7 @@ public class LightBulb extends BMSObjects {
         super.run(sC, temperture, batCapacity);
     }
 
+    @Override
     public String getStatus() {
         return super.getStatus(brand, color, model);
     }

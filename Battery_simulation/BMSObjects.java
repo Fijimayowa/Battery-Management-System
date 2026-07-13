@@ -5,6 +5,8 @@ import java.util.Random;
 import java.lang.Thread;
 
 public abstract class BMSObjects {
+    float temperture;
+
     void charge(double sC, int batP, float temp, int batC) {
         float avgVolt = 0.9f, socEstimate = 0.0f;
         Random noise = new Random();

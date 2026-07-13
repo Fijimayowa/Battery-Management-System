@@ -9,13 +9,13 @@ import java.lang.Thread;
 
 public class PowerAllocator extends VoltageReader {
     LightBulb light;
-    Fan fan;
+    CeilingFan fan;
     Radio radio;
     int priorityNum;
     float kiloWatt = 30;
     Map<BMSObjects, Float> prior = new HashMap<>();
 
-    PowerAllocator(LightBulb lt, Fan fn, Radio rd) {
+    PowerAllocator(LightBulb lt, CeilingFan fn, Radio rd) {
         light = lt;
         fan = fn;
         radio = rd;
@@ -41,7 +41,7 @@ public class PowerAllocator extends VoltageReader {
 
     }
 
-    public void Priority(){
+    public BMSObjects Priority() {
         float max = 0.0f;
         BMSObjects deviceWithPriority;
         Random noise = new Random();
@@ -50,14 +50,15 @@ public class PowerAllocator extends VoltageReader {
             if (entry.getValue() > max) {
                 max = entry.getValue();
                 deviceWithPriority = entry.getKey();
-                deviceWithPriority.charge(deviceWithPriority.getSoc() + res, (int)deviceWithPriority.getSoc(), deviceWithPriority.getTemperture(), deviceWithPriority.getBatteryCapacity());
-                try{
+                deviceWithPriority.charge(deviceWithPriority.getSoc() + res, (int) deviceWithPriority.getSoc(),
+                        deviceWithPriority.getTemperture(), deviceWithPriority.getBatteryCapacity());
+                try {
                     Thread.sleep(1000);
-                }
-                catch(InterruptedException e){
-                    System.out.println("Thread unable to sleep due to "+e+" Error");
+                } catch (InterruptedException e) {
+                    System.out.println("Thread unable to sleep due to " + e + " Error");
                 }
             }
         }
+        return deviceWithPriority;
     }
 }
