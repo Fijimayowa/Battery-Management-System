@@ -23,7 +23,10 @@ public class BMSSimulator {
             case 1:
                 System.out.println((userInfo.get(decision).getStatus());
             case 2:
-                PowerAllocator pAlloc = new PowerAllocator((LightBulb) lightbulb, (CeilingFan) fan, (Radio) radio);
+                PowerAllocator pAlloc = new PowerAllocator((LightBulb) lightbulb, (CeilingFan) fan, (Radio) radio);pAlloc.Queue(userInfo.get(decision));
+                if (pAlloc.prior.peek()) {
+                    System.out.println("lol");
+                }
                 userInfo.get(decision).charge(0, 0, 71.2f, 1200);
 
             default:
