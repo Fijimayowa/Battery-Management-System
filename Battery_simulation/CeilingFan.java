@@ -1,13 +1,13 @@
 package Battery_simulation;
 
-public class Fan extends BMSObjects {
+public class CeilingFan extends BMSObjects {
     float size, rpm, voltage, power, temperture, current;
     String color, brand, model;
     int batCapacity = 1200, begOfLifeCapacity = 1200;
     double soC, battery_percentage;
     final double optimalTemp=78.00d;
 
-    Fan(float size, float rpm, float voltage, float current, float temperture, double soC, String color, String brand,
+    CeilingFan(float size, float rpm, float voltage, float current, float temperture, double soC, String color, String brand,
             String model) {
         this.size = size;
         this.rpm = rpm;

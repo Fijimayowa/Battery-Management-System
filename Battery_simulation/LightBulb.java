@@ -30,7 +30,6 @@ public class LightBulb extends BMSObjects {
         super.run(sC, temperture, batCapacity);
     }
 
-    @Override
     public String getStatus() {
         return super.getStatus(brand, color, model);
     }
