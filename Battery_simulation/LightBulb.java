@@ -1,17 +1,16 @@
 package Battery_simulation;
 
 public class LightBulb extends BMSObjects {
-    float size, rpm, voltage, power, temperture, current;
+    float size, voltage, power, temperture, current;
     String color, brand, model;
     int batCapacity = 2000, begOfLifeCapacity = 2000;
     double soC, batteryPercentage;
     final double optimalTemp = 68.00d;
 
-    LightBulb(float size, float rpm, float voltage, float current, float temperture, double soC, String color,
+    LightBulb(float size, float voltage, float current, float temperture, double soC, String color,
             String brand,
             String model) {
         this.size = size;
-        this.rpm = rpm;
         this.voltage = voltage;
         this.current = current;
         this.temperture = temperture;

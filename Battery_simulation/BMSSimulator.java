@@ -6,10 +6,49 @@ import java.util.Scanner;
 
 public class BMSSimulator {
     public static void main(String[] arg) {
-        Map<String, BMSObjects> userInfo = new HashMap<>();
-        BMSObjects fan = new CeilingFan(0, 0, 0, 0, 0, 0, null, null, null),
-                radio = new Radio(0, 0, 0, 0, 0, 0, null, null, null),
-                lightbulb = new LightBulb(0, 0, 0, 0, 0, 0, null, null, null);
+        Boolean running = true;
+        Device fan = Device.ceilingfan;
+        Device radio = Device.radio;
+        Device lightbulb = Device.lightbulb;
+        while (running) {
+            Map<Integer, BMSObjects> dec = new HashMap<>();
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("""
+                    How would you like to begin?
+                    [1] Get device status
+                    [2] Charge Device
+                    [3] Turn Device On
+                    [4] Turn Device Off
+                    [5] Power Allocater
+                    [5] Use Outlet
+                    [6] Quit""");
+            int value = scanner.nextInt();
+            if (value > 5) {
+                Scanner option = new Scanner(System.in);
+                System.out.println("""
+                        Select Device
+                        [1]Radio
+                        [2]Fan
+                        [3]LightBulb
+                        """);
+                int decision = option.nextInt();
+                LightBulb light = new LightBulb(2.9f, 120.2f, 18f, 60f, 74d, "White", "GE lighting", "Incandescent");
+                CeilingFan fn = new CeilingFan(15f, 300f, 12f, 1.5f, 90f, 98d, "Black", "Ikea", "SuperFan");
+                Radio rd = new Radio(3.5f, 9.0f, 40.2f, 50.0f, 90d, "Sony", "RF100");
+                dec.put(1, light);
+                dec.put(2, fn);
+                dec.put(3, rd);
+
+            }
+            switch (value) {
+                case 1:
+                    if (decision.toLowerCase().strip())
+                        break;
+
+                default:
+                    break;
+            }
+        }
         userInfo.putIfAbsent("fan", fan);
         userInfo.putIfAbsent("lightbulb", lightbulb);
         userInfo.putIfAbsent("radio", radio);
@@ -21,9 +60,10 @@ public class BMSSimulator {
         String decision = userInput.nextLine();
         switch (option) {
             case 1:
-                System.out.println((userInfo.get(decision).getStatus());
+                System.out.println((userInfo.get(decision).getStatus()));
             case 2:
-                PowerAllocator pAlloc = new PowerAllocator((LightBulb) lightbulb, (CeilingFan) fan, (Radio) radio);pAlloc.Queue(userInfo.get(decision));
+                PowerAllocator pAlloc = new PowerAllocator((LightBulb) lightbulb, (CeilingFan) fan, (Radio) radio);
+                pAlloc.Queue(userInfo.get(decision));
                 if (pAlloc.prior.peek()) {
                     System.out.println("lo");
                 }
