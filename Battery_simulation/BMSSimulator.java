@@ -23,27 +23,26 @@ public class BMSSimulator {
                     [5] Use Outlet
                     [6] Quit""");
             int value = scanner.nextInt();
-            if (value > 5) {
-                Scanner option = new Scanner(System.in);
-                System.out.println("""
-                        Select Device
-                        [1]Radio
-                        [2]Fan
-                        [3]LightBulb
-                        """);
-                int decision = option.nextInt();
-                LightBulb light = new LightBulb(2.9f, 120.2f, 18f, 60f, 74d, "White", "GE lighting", "Incandescent");
-                CeilingFan fn = new CeilingFan(15f, 300f, 12f, 1.5f, 90f, 98d, "Black", "Ikea", "SuperFan");
-                Radio rd = new Radio(3.5f, 9.0f, 40.2f, 50.0f, 90d, "Sony", "RF100");
-                dec.put(1, light);
-                dec.put(2, fn);
-                dec.put(3, rd);
+            Scanner option = new Scanner(System.in);
+            System.out.println("""
+                    Select Device
+                    [1]Radio
+                    [2]Fan
+                    [3]LightBulb
+                    """);
+            int decision = option.nextInt();
+            LightBulb light = new LightBulb(2.9f, 120.2f, 18f, 60f, 74d, "White", "GE lighting", "Incandescent");
+            CeilingFan fn = new CeilingFan(15f, 300f, 12f, 1.5f, 90f, 98d, "Black", "Ikea", "SuperFan");
+            Radio rd = new Radio(3.5f, 9f, 0.20f, 70f, 98.02d, "Black", "Sony", "Rf12V");
+            dec.put(1, light);
+            dec.put(2, fn);
+            dec.put(3, rd);
 
-            }
             switch (value) {
                 case 1:
-                    if (decision.toLowerCase().strip())
-                        break;
+                    BMSObjects po = dec.get(option);
+                    System.out.println(po.getStatus());
+                    break;
 
                 default:
                     break;
