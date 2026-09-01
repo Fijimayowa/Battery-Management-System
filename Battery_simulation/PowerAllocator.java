@@ -39,9 +39,10 @@ public class PowerAllocator extends VoltageReader {
             Thread.sleep(1000);
         }
 
+
     }
 
-    public BMSObjects Priority() {
+    public void Priority() {
         float max = 0.0f;
         BMSObjects deviceWithPriority;
         Random noise = new Random();
@@ -59,6 +60,5 @@ public class PowerAllocator extends VoltageReader {
                 }
             }
         }
-        return deviceWithPriority;
     }
 }
