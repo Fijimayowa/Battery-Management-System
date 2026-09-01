@@ -5,9 +5,13 @@ import java.util.Random;
 import java.lang.Thread;
 
 public abstract class BMSObjects {
-    float temperture, optimalTemp = 75.f;
+    private float tempertur;
+    private int baterC;
+    float optimalTemp = 75.f;
 
-    void charge(double sC, int batP, float temp, int batC) {
+    void charge(double sC, int batP, float tem, int batC) {
+        tempertur = tem;
+        baterC = batC;
         float avgVolt = 0.9f, socEstimate = 0.0f;
         Random noise = new Random();
         for (int i = 0; i < 6; i++) {
@@ -27,13 +31,17 @@ public abstract class BMSObjects {
                 noise.nextFloat(0.99f));
         ScheduledExecutorService now = Executors.newScheduledThreadPool(2);
         now.schedule(() -> {
-            temp += 0.12f;
-            batC -= 3;
+            tempertur += 0.12f;
+            baterC -= 3;
         }, 7, TimeUnit.DAYS);
         batP = (int) sC;
+        tem = tempertur;
+        batC = baterC;
     }
 
     void run(double sC, float temperture, int batCapacity) {
+        tempertur = temperture;
+        baterC = batCapacity;
         float avgDep = 0.99f;
         Random noise = new Random();
         for (int i = 0; i < 6; i++) {
@@ -44,10 +52,12 @@ public abstract class BMSObjects {
         }
         ScheduledExecutorService depreciation = Executors.newScheduledThreadPool(2);
         depreciation.schedule(() -> {
-            temperture += 0.12f;
-            batCapacity -= 3;
+            tempertur += 0.12f;
+            baterC -= 3;
 
         }, 7, TimeUnit.DAYS);
+        temperture = tempertur;
+        batCapacity = baterC;
     }
 
     String getRequirement(double size, float voltage, float temperture, float current, int batCapacity) {
