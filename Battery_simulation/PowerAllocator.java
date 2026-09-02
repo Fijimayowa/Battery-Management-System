@@ -1,5 +1,4 @@
 package Battery_simulation;
-
 import java.util.Random;
 import java.util.Queue;
 import java.util.LinkedList;

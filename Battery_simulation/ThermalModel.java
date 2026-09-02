@@ -10,7 +10,7 @@ public class ThermalModel extends PIDController {
 
     public double pidControllerGain(BMSObjects device){
         PIDController pidController=new PIDController();
-        return pidController.proportionalGain(device.optimalTemp-device.temperture)+pidController.intergralGain()+pidController.derivativeGain(2, 1.5f);
+        return pidController.proportionalGain(device.optimalTemp-device.getTemperture())+pidController.intergralGain()+pidController.derivativeGain(2, 1.5f);
     }
 
 }

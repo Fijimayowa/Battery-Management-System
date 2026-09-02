@@ -5,13 +5,13 @@ import java.util.Random;
 public class CoolingFan {
     private final float coolingEffient = 0.99f;
     private int maxFanSpeed = 300;
-    final Cells battery = new Cells(0.8f, 3.7, 2300, 4.2f, 2300f);
+    Cells battery = new Cells(0.8f, 3.7, 2300, 4.2f, 2300f);
 
     public void coolDown(BMSObjects device, float desiredTemp, double gain) {
-        while (turnOn(device) && battery.StateOfCharge() > 0) {
+        while (turnOn(device) && Cells.StateOfCharge() > 0) {
             Random noise = new Random();
             float dep = 0.005f;
-            device.temperture -= gain * coolingEffient;
+            device.tempertur -= gain * coolingEffient;
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -35,7 +35,7 @@ public class CoolingFan {
     }
 
     private boolean turnOn(BMSObjects device) {
-        if (battery.StateOfCharge() < 0) {
+        if (Cells.StateOfCharge() < 0) {
             return false;
         }
         return device.optimalTemp > device.getPowerRequirement();

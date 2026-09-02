@@ -5,7 +5,7 @@ import java.util.Random;
 import java.lang.Thread;
 
 public abstract class BMSObjects {
-    private float tempertur;
+    float tempertur;
     private int baterC;
     float optimalTemp = 75.f;
 

@@ -20,8 +20,8 @@ public class BMSSimulator {
                     [3] Turn Device On
                     [4] Turn Device Off
                     [5] Power Allocater
-                    [5] Use Outlet
-                    [6] Quit""");
+                    [6] Use Outlet
+                    [7] Quit""");
             int value = scanner.nextInt();
             if (value>6) {
                 Scanner option = new Scanner(System.in);
@@ -44,8 +44,7 @@ public class BMSSimulator {
                         System.out.println(dv.getStatus());
                         break;
                     case 2:
-                        PowerAllocator pw=new PowerAllocator(light, fn, rd);
-                        pw.Queue(dec.get(decision));
+                        dv.charge(decision, decision, value, decision);
                     case 3:
                         if(dv.getSoc()<5){
                             System.out.println("Battery low");
@@ -53,12 +52,17 @@ public class BMSSimulator {
                         dv.run(decision, value, decision);
                         break;
                     case 5:
+                        PowerAllocator pw=new PowerAllocator(light, fn, rd);
+                        pw.Queue(dec.get(decision));
+                    case 6:
                         Outlet outlet=new Outlet(15f,120f,0.1f);
                         if (!outlet.isOccupied()) {
                             outlet.turnOn();
                             outlet.plugIn(dv);
                         }
-                        System.out.println("--------------\n"+"Device in use ");
+                        System.out.println("--------------\n"+"Device in use:");
+                        outlet.turnOff();
+                        outlet.unplug();
                     default:
                         break;
                 }
