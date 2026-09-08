@@ -19,8 +19,9 @@
 void poll_voltage()
 {
     i2c_init();
-    uint8_t data[10];
-    i2c_read_register(INA219_ADDR, )
+    uint8_t current_data, power_data;
+    i2c_read_register(INA219_ADDR, Current_register, &current_data);
+    i2c_read_register(INA219_ADDR, Power_register, &power_data);
 }
 
 int main()
@@ -28,6 +29,7 @@ int main()
     stdio_init_all();
     gpio_set_function(SDA_pin, GPIO_FUNC_I2C);
     gpio_set_function(SDL_pin, GPIO_FUNC_I2C);
+    double expected_current = 600, calbration = expected_current / 32768;
     while (true)
     {
         printf("yooo");
