@@ -14,10 +14,13 @@
 #define SDA_pin 4
 #define SDL_pin 5
 
+#define INA219_ADDR 0x40
+
 void poll_voltage()
 {
     i2c_init();
     uint8_t data[10];
+    i2c_read_register(INA219_ADDR, )
 }
 
 int main()
