@@ -27,6 +27,10 @@ void poll_voltage()
     i2c_read_register(INA219_ADDR, Bus_voltage_register, &bus_voltage);
 }
 
+void thermal_model(){
+    
+}
+
 int main()
 {
     stdio_init_all();
