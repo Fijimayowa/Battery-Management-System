@@ -3,6 +3,7 @@
 #include "hardware/i2c.h"
 #include "hardware/adc.h"
 #include <stdbool.h>
+#include <math.h> 
 
 #define Configuration_register 0x00
 #define Shunt_voltage_register 0x01
@@ -23,6 +24,7 @@
 #define Lightbulb 28
 #define CoolingFan 29
 
+
 void poll_voltage()
 {
     i2c_init();
@@ -33,9 +35,18 @@ void poll_voltage()
     i2c_read_register(INA219_ADDR, Bus_voltage_register, &bus_voltage);
 }
 
-void thermal_model(int device)
+float thermal_model(int device)
 {
     adc_gpio_init(device);
+    adc_select_input(0);
+    uint16_t reading=adc_read();
+    float voltage= 3.3f*(reading/4095);
+    float resistance=R_SHUNT*(reading/(3.3f-reading));
+    float temp=(1/(1/25)+(1/3435)*log(resistance/0.1));
+    return temp;
+
+
+
 
 }
 int main()
