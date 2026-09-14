@@ -24,6 +24,12 @@
 #define Lightbulb 28
 #define CoolingFan 29
 
+typedef Device{
+    float voltage, optimal_temp, temperture, current;
+    double soC, battery_percentage;
+    int batCapacity, begOfLifeCapacity, device_gpio_pin;
+    
+}LightBulb, Radio, CeilingFan;
 
 void poll_voltage()
 {
@@ -35,7 +41,7 @@ void poll_voltage()
     i2c_read_register(INA219_ADDR, Bus_voltage_register, &bus_voltage);
 }
 
-float thermal_model(int device)
+float get_thermal_reading(Device object, int PWM_level)
 {
     adc_gpio_init(device);
     adc_select_input(0);
@@ -43,9 +49,15 @@ float thermal_model(int device)
     float voltage= 3.3f*(reading/4095);
     float resistance=R_SHUNT*(reading/(3.3f-reading));
     float temp=(1/(1/25)+(1/3435)*log(resistance/0.1));
+    gpio_set_function(object.device_gpio_pin, GPIO_FUNC_PWM);
+    uint slice= pwm_gpio_to_slice_num(object.device_gpio_pin);
+    while(1){
+        if(object.temperture>object.optimal_temp){
+            pwm_set_wrap(slice, PWM_level);
+            sleep_ms(1000);
+        }
+    }
     return temp;
-
-
 
 
 }
