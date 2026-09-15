@@ -31,6 +31,12 @@ typedef Device{
     
 }LightBulb, Radio, CeilingFan;
 
+void turnOn(Device object){
+    gpio_put(object.device_gpio_pin, 1);
+}
+void turnOff(){
+    gpio_put(object.Device,0);
+}
 void poll_voltage()
 {
     i2c_init();
@@ -54,11 +60,13 @@ float get_thermal_reading(Device object, int PWM_level)
     while(1){
         if(object.temperture>object.optimal_temp){
             pwm_set_wrap(slice, PWM_level);
+            pwm_set_chan_level(slice, PWM_CHAN_A, Power_register, PWM_level)
+            PWM_level-=100;
             sleep_ms(1000);
+            P
         }
     }
     return temp;
-
 
 }
 int main()
