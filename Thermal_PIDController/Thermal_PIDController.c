@@ -24,6 +24,8 @@
 #define Lightbulb 28
 #define CoolingFan 29
 
+#define PWM_level 12500
+
 typedef Device{
     float voltage, optimal_temp, temperture, current;
     double soC, battery_percentage;
@@ -37,6 +39,13 @@ void turnOn(Device object){
 void turnOff(){
     gpio_put(object.Device,0);
 }
+void object_intensity(Device object, int Speed){
+    uint slice=pwm_gpio_to_slice_num(object.device_gpio_pin);
+    pwm_set_wrap(slice, PWM_level);
+    pwm_set_chan_level(slice, PWM_CHAN_A,PWM_level*(Speed)/100);
+
+
+}
 void poll_voltage()
 {
     i2c_init();
@@ -47,7 +56,7 @@ void poll_voltage()
     i2c_read_register(INA219_ADDR, Bus_voltage_register, &bus_voltage);
 }
 
-float get_thermal_reading(Device object, int PWM_level)
+float get_thermal_reading(Device object)
 {
     adc_gpio_init(device);
     adc_select_input(0);
@@ -60,7 +69,7 @@ float get_thermal_reading(Device object, int PWM_level)
     while(1){
         if(object.temperture>object.optimal_temp){
             pwm_set_wrap(slice, PWM_level);
-            pwm_set_chan_level(slice, PWM_CHAN_A, Power_register, PWM_level)
+            pwm_set_chan_level(slice, PWM_CHAN_A,PWM_level);
             PWM_level-=100;
             sleep_ms(1000);
             P
