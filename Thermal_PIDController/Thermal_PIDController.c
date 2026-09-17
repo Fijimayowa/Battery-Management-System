@@ -26,6 +26,9 @@
 
 #define PWM_level 12500
 
+const int processnoise=10800;
+float perrorCovarince=0.01f;
+
 typedef Device{
     float voltage, optimal_temp, temperture, current;
     double soC, battery_percentage;
@@ -43,6 +46,19 @@ void object_intensity(Device object, int Speed){
     uint slice=pwm_gpio_to_slice_num(object.device_gpio_pin);
     pwm_set_wrap(slice, PWM_level);
     pwm_set_chan_level(slice, PWM_CHAN_A,PWM_level*(Speed)/100);
+
+
+}
+double KalmanFilter(double SoCestimate, previous_state){
+    const double measure_noise=0.0001d;
+    double SoCestimatePredict= previous_state+ SoCestimate;
+    double perrorC=perrorCovarince+processnoise;
+    float KalmanGain=perrorC/(perrorC+measure_noise);
+    SoCestimate=SoCestimatePredict+KalmanGain*(soC-SoCestimatePredict);
+    perrorC=(1-KalmanGain)*perrorC;
+    perrorCovarince=perrorC;
+    return SoCestimate;
+
 
 
 }
