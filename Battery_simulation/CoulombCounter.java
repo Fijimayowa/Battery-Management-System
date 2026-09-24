@@ -1,5 +1,6 @@
 package Battery_simulation;
 
+<<<<<<< HEAD
 import java.util.Random;
 
 public class CoulombCounter extends VoltageReader {
@@ -17,4 +18,12 @@ public class CoulombCounter extends VoltageReader {
         return socEstimate;
  
     }
+=======
+import Battery_simulation.Cells;
+import math
+
+public class CoulombCounter {
+    Cells battery = new Cells(0, 0, 0, 0);
+    int s = 0;
+>>>>>>> dc08120c08204da73d848702524f4dd8b24511e2
 }
